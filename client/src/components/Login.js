@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function Login({ onLogin }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post(`${REACT_APP_API_URL}/api/auth/login`, { email, password });
       onLogin({ ...res.data.user, token: res.data.token });
       navigate('/');
     } catch (err) {
@@ -25,7 +25,7 @@ export default function Login({ onLogin }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/register', { name, email, password, role });
+      await axios.post(`${REACT_APP_API_URL}/api/auth/register`, { name, email, password, role });
       alert('User created! Now log in.');
       setTab('login');
       setName('');
